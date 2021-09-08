@@ -59,14 +59,13 @@ const result = [];
   if (min < 0 || max < 0) {
     throw "min or max is less than zero"
   }
-  try {
   for (let product of products) {
+    if(!product.priceInCents) {
+      throw "No priceInCents key"
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
-  }}
-  catch (error) {
-    console.log(error) 
   }
   return result;
 }
@@ -75,10 +74,14 @@ const result = [];
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+try {
+const filteredProducts = filterProductsByPriceRange(products, min, max);
+const total = getCartTotal(filteredProducts);
+return total;
+  }
+  catch (error) {
+    return 0
+  }
 }
 
 module.exports = {
