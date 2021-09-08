@@ -1,7 +1,10 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
+  Do not change the line below. 
+  If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. 
+  This data is pulled from the `data/songs.js` file.
 
-  You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
+  You may use this data to test your functions. 
+  You may assume the shape of the data remains the same but that the values may change.
 
   Keep in mind that your functions must still have and use a parameter for accepting all songs.
 */
@@ -19,6 +22,7 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if(!cart.length) throw 'The cart is empty.'
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -36,6 +40,12 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if(!product.length) throw 'The cart is empty.'
+  if(min && max !== 'number') throw 'An error occurred.'
+  if(min > max) throw 'An error occurred.'
+  if(max === 0 ) throw 'An error occurred.'
+  if( min && max < 0) throw 'An error occurred.'
+
   const result = [];
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
