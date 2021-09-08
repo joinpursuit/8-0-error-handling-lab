@@ -43,11 +43,30 @@ let result = 0;
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
-  const result = [];
+const result = [];
+  if (!products.length) {
+    throw "Products array is empty"
+  }
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw "min or max is not a number"
+  }
+  if (max === 0) {
+    throw "max equals zero"
+  }
+  if (min > max) {
+    throw "min is greater than max"
+  }
+  if (min < 0 || max < 0) {
+    throw "min or max is less than zero"
+  }
+  try {
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
+  }}
+  catch (error) {
+    console.log(error) 
   }
   return result;
 }
