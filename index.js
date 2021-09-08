@@ -20,11 +20,16 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
   let result = 0;
+  if (!cart.length) {
+    throw "Cart is empty."
+  }
+
   for (let product of cart) {
     result += product.priceInCents;
   }
   return result;
 }
+
 
 /*
   This function should throw an error if:
