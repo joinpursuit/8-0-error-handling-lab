@@ -20,10 +20,19 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
   let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
+
+  if(!cart.length) {
+    throw "The cart is empty!"
   }
-  return result;
+
+  try {
+    for (let product of cart) {
+      result += product.priceInCents;
+    }
+    return result;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 /*
