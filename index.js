@@ -46,11 +46,14 @@ function filterProductsByPriceRange(products, min, max) {
     throw "Either Min or Max is not a number."
   }
   if (max <= 0 || min < 0){
-    throw "Max is less than or equal to 0, or Min is less than "
+    throw "Max is less than or equal to 0, or Min is less than 0."
   }
   const result = [];
   for (let product of products) {
-    if (product.priceInCents >= min && product.priceInCents <= max) {
+    if (!product.priceInCents) {
+      throw "Array doesn't have a `priceInCents` key";
+    }
+    if (product.priceInCents >= min && product.priceInCents <= max){
       result.push(product);
     }
   }
