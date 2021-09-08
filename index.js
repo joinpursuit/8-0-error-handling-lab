@@ -44,19 +44,19 @@ const getCartTotal = (cart) => {
 const filterProductsByPriceRange = (products, min, max) => {
   
   if(!products.length) {
-    throw "Error, No products entered!"
+    throw "Error!"
   }
   if(typeof min !== "number" || typeof max !== "number") {
-    throw "Error, You must enter a number!"
+    throw "Error!"
   }
   if(max === 0) {
-    throw "Error, can't enter 0 as maximum range!"
+    throw "Error!"
   }
   if(min > max) {
-    throw "Error, minimum range cannot be over maximum range!"
+    throw "Error!"
   }
-  if(min < 0 || max <0) {
-    throw "Error, number cannot be less than 0!"
+  if(min < 0 || max < 0) {
+    throw "Error!"
   }
   
   const result = [];
