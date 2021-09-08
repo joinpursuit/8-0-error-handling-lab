@@ -1,9 +1,13 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
+  Do not change the line below. If you'd like to run code from this file, you 
+  may use the `exampleSongData` variable below to gain access to tickets data. 
+  This data is pulled from the `data/songs.js` file.
 
-  You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
+  You may use this data to test your functions. You may assume the shape of 
+  the data remains the same but that the values may change.
 
-  Keep in mind that your functions must still have and use a parameter for accepting all songs.
+  Keep in mind that your functions must still have and use a parameter for 
+  accepting all songs.
 */
 const exampleProducts = [
   { id: 1, name: "Panel Headboard", priceInCents: 12332 },
@@ -19,6 +23,10 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length === 0) {
+    throw 'Your cart is empty';
+  }
+
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -33,11 +41,18 @@ function getCartTotal(cart) {
   - `max` is equal to `0`.
   - `min` is greater than `max`.
   - Either `min` or `max` is less than `0`.
-  - Any of the products in the `products` array does not have a `priceInCents` key.
+  - Any of the products in the `products` array does not 
+  have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if (!products.length) throw "There are no products";
+  if (typeof min !== 'number' || typeof max !== 'number') throw "'min' or 'max' is not a number";
+  if (max <= 0 || min > max || min < 0) throw 'Error! Input valid min or max';
+
   const result = [];
   for (let product of products) {
+    if (product.priceInCents === undefined) throw "priceInCents key doesn't exist";
+
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -49,10 +64,14 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+    return total;
+  } catch (error) {
+    return 0;
+  }
 }
 
 module.exports = {
