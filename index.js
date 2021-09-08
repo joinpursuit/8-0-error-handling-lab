@@ -76,7 +76,7 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
   
     return total;
   }
-  catch (error){
+  catch{
     return 0
   }
 }
