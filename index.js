@@ -19,9 +19,16 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  let result = 0;
+let result = 0;
+  if(!cart.length) {
+    throw "Cart array is empty"
+  }
+  try {
   for (let product of cart) {
     result += product.priceInCents;
+  }}
+  catch (error) {
+    console.log(error)
   }
   return result;
 }
