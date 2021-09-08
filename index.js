@@ -19,9 +19,15 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (!cart.length) throw `The cart array is empty`;
   let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
+  try {
+    for (let product of cart) {
+      
+      result += product.priceInCents;
+    }
+  } catch (error) {
+    console.log(error);
   }
   return result;
 }
@@ -53,8 +59,8 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
   const total = getCartTotal(filteredProducts);
 
   return total;
+  
 }
-
 module.exports = {
   getCartTotal,
   filterProductsByPriceRange,
