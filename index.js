@@ -19,9 +19,12 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if(!cart.length){//guard clause
+    throw "";
+  }
   let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
+  for (let product of cart) {// looping through if guard clause passed
+    result += product.priceInCents;// accumulating priceInCents
   }
   return result;
 }
@@ -37,9 +40,21 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
-  for (let product of products) {
-    if (product.priceInCents >= min && product.priceInCents <= max) {
-      result.push(product);
+  if(!products.length){// empty array
+    throw "";
+  } if (typeof min !== "number" || typeof max !== "number"){//NaN min max
+    throw "";
+  } if (max <= 0 || min < 0){
+    throw "";
+  } if (min > max){
+    throw "";
+  } 
+  for (let product of products) {//loop through if above conditions net
+    if(!product.priceInCents){// no priceInCents key
+      throw "";
+    }
+    if (product.priceInCents >= min && product.priceInCents <= max) {// filter
+      result.push(product);// push filtered objects
     }
   }
   return result;
@@ -49,10 +64,14 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+  try {
+    let filteredProducts = filterProductsByPriceRange(products, min, max); // this should produce an array of objects
+    let total = getCartTotal(filteredProducts);// total will be equal to the sum of all objects filtered in above fx
+      return total;// if no error
 
-  return total;
+  } catch (error) { // if error
+    return 0;
+  }
 }
 
 module.exports = {
