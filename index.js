@@ -1,5 +1,6 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
+  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. 
+  This data is pulled from the `data/songs.js` file.
 
   You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
 
@@ -19,12 +20,17 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length === 0) {
+    throw `The cart array is empty.`;
+  }
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
   }
   return result;
 }
+
+//
 
 /*
   This function should throw an error if:
@@ -36,6 +42,26 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if (products.length === 0) {
+    throw `The products array is empty.`;
+  }
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw `Either ${min} or ${max} is not a number.`;
+  }
+  if (max === 0) {
+    throw `${max} is equal to 0.`;
+  }
+  if (min > max) {
+    throw `${min} is greater than ${max}.`;
+  }
+  if (min < 0 || max < 0) {
+    throw `Either ${min} or ${max} is less than 0.`;
+  }
+  const anyPrice = products.every((price) => price.priceInCents);
+  if (anyPrice === false) {
+    throw `Any of the products in the ${products} array does not have a priceInCents key.`;
+  }
+
   const result = [];
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
@@ -49,10 +75,21 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+  let filteredProducts = null;
 
-  return total;
+  try {
+    filteredProducts = filterProductsByPriceRange(products, min, max);
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+
+  try {
+    return getCartTotal(filteredProducts);
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
 }
 
 module.exports = {
