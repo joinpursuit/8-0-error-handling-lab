@@ -23,7 +23,6 @@ function getCartTotal(cart) {
   let result = 0;
   try {
     for (let product of cart) {
-      
       result += product.priceInCents;
     }
   } catch (error) {
@@ -51,17 +50,18 @@ function filterProductsByPriceRange(products, min, max) {
   if (min < 0 || max <= 0) throw ` min or max less then zero`;
   
   const result = [];
-  
+  try {
     for (let product of products) {
-      
-      if(!product.priceInCents) {throw `priceInCents`} 
 
       if (product.priceInCents >= min && product.priceInCents <= max) {
-
+        
         result.push(product);
       }
+      if(!product.priceInCents) {throw `priceInCents`} 
     }
-  
+  } catch(error){
+    console.log(err)
+  }
   return result;
 }
 
