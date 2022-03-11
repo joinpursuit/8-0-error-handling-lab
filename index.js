@@ -23,6 +23,9 @@ function getCartTotal(cart) {
   for (let product of cart) {
     result += product.priceInCents;
   }
+  if (!cart.length) {
+    throw "The `cart` array is empty.";
+  }
   return result;
 }
 
@@ -51,9 +54,8 @@ function filterProductsByPriceRange(products, min, max) {
 function getTotalOfAllProductsByPriceRange(products, min, max) {
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
-
-  return total;
-}
+  return total; 
+  }
 
 module.exports = {
   getCartTotal,
