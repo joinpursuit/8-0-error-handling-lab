@@ -23,6 +23,9 @@ function getCartTotal(cart) {
   for (let product of cart) {
     result += product.priceInCents;
   }
+  if (result === 0) {
+    throw "the cart is empty"
+  }
   return result;
 }
 
@@ -38,21 +41,37 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
   for (let product of products) {
+    if (!product.priceInCents) {
+      throw "Error: All Products must have a price.";
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
   }
-  return result;
+
+  if (products[0] === undefined) {
+    throw "Error: Products array is empty.";
+  } else if (typeof min != "number" || typeof max != "number") {
+    throw "Error: Min and Max must be numbers.";
+  } else if (max === 0 || min > max || min < 0 || max < 0) {
+    throw "Error: Max should be greater than Min and greater than 0. Min and Max should not be negative.";
+  } else {
+    return result;
+  }
 }
+
 
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+  try {
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
-
   return total;
+} catch  {
+  return 0
+}
 }
 
 module.exports = {
