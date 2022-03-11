@@ -24,6 +24,7 @@ function getCartTotal(cart) {
   if (Object.keys(cart).length === 0) {
     throw 'Cart is empty, please add an item to purchase.';
   }
+
   for (let product of cart) {
     result += product.priceInCents;
   }
@@ -42,11 +43,22 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
+
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
+    } else if (!product.priceInCents) {
+      throw 'error';
     }
   }
+  if (Object.keys(products).length === 0) {
+    throw 'No products given.';
+  } else if (typeof min !== 'number' || typeof max !== 'number') {
+    throw 'need a number';
+  } else if (min > max || min < 0 || max < 0 || max === 0) {
+    throw 'invalid min or max values';
+  }
+
   return result;
 }
 
