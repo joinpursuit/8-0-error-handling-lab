@@ -42,16 +42,14 @@ function filterProductsByPriceRange(products, min, max) {
   const result = [];
   if (!products.length){
     throw "Your products are empty."
-  }
-  if (typeof min !== "number" || typeof max !== "number"){
+  } else if (typeof min !== "number" || typeof max !== "number"){
     throw "Either min or max are not a number."
-  }
-  if (min < 1 || max <= 0){
+  } else if (min < 1 || max <= 0){
     throw "Max or Min cannot be 0 or less."
   }
   for (let product of products) {
     if (!product.priceInCents){
-      throw `Your ${product.priceInCents} doesn't exist`
+      throw `${product.name} doesn't have a price.`
     }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
@@ -64,17 +62,13 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  try{
-    getTotalOfAllProductsByPriceRange(products, min, max)
-    filterProductsByPriceRange(products, min, max)
-    getCartTotal(filteredProducts)
-  } catch (error){
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
     return total
+  } catch (error){
+    return 0;
   }
-  return total;
 }
 
 module.exports = {
