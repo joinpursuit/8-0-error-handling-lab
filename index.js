@@ -39,12 +39,34 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if (!products.length) {
+    throw "There are no products.";
+  }
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw "No minimum or maximum.";
+  }
+  if (min > max) {
+    throw "Minimum is greater than maximum.";
+  }
+  if (min < 0) {
+    throw "Minimum is less than zero.";
+  }
+  if (max < 0) {
+    throw "Maximum is less than zero.";
+  }
+  if (max === 0) {
+    throw "Maximum is equal to zero.";
+  }
   const result = [];
   for (let product of products) {
+    if (!product.priceInCents) {
+      throw "This product does not have a price.";
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
   }
+
   return result;
 }
 
