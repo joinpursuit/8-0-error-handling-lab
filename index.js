@@ -49,7 +49,7 @@ function filterProductsByPriceRange(products, min, max) {
     }
   }
 
-  if (products[0] === undefined) {
+  if (!products.length) {
     throw "Error: Products array is empty.";
   } else if (typeof min != "number" || typeof max != "number") {
     throw "Error: Min and Max must be numbers.";
