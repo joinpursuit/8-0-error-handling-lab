@@ -21,14 +21,12 @@ const exampleProducts = [
 function getCartTotal(cart) {
   let result = 0;
 
-  if (Object.keys(cart).length === 0) {
-    throw 'Cart is empty, please add an item to purchase.';
-  }
-
   for (let product of cart) {
     result += product.priceInCents;
   }
-
+  if (Object.keys(cart).length === 0) {
+    throw 'Cart is empty, please add an item to purchase.';
+  }
   return result;
 }
 
@@ -66,10 +64,16 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
 
-  return total;
+    return total;
+  } catch {
+    console.log('Product fetch failed.');
+
+    return 0;
+  }
 }
 
 module.exports = {
