@@ -51,6 +51,7 @@ function filterProductsByPriceRange(products, min, max) {
   } else if (min < 0 || max < 0) {
     throw "max and Min must be greater than 0.";
   }
+
   for (let product of products) {
     if (!product.priceInCents) {
       throw `${product} must have a 'priceInCents' key.`;
@@ -70,10 +71,13 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+    return total;
+  } catch {
+    return 0;
+  }
 }
 
 module.exports = {
