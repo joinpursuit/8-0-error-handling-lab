@@ -6,11 +6,11 @@
   Keep in mind that your functions must still have and use a parameter for accepting all songs.
 */
 const exampleProducts = [
-  { id: 1, name: "Panel Headboard", priceInCents: 12332 },
-  { id: 2, name: "Low Profile Sleigh Bed", priceInCents: 22999 },
-  { id: 3, name: "Oval 100% Cotton Solid Bath Rug", priceInCents: 1399 },
-  { id: 4, name: "Abstract Light Gray Area Rug", priceInCents: 33999 },
-  { id: 5, name: "Multi Game Table", priceInCents: 81743 },
+  { id: 1, name: 'Panel Headboard', priceInCents: 12332 },
+  { id: 2, name: 'Low Profile Sleigh Bed', priceInCents: 22999 },
+  { id: 3, name: 'Oval 100% Cotton Solid Bath Rug', priceInCents: 1399 },
+  { id: 4, name: 'Abstract Light Gray Area Rug', priceInCents: 33999 },
+  { id: 5, name: 'Multi Game Table', priceInCents: 81743 },
 ];
 // Do not change the line above.
 
@@ -20,9 +20,14 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
   let result = 0;
+
+  if (Object.keys(cart).length === 0) {
+    throw 'Cart is empty, please add an item to purchase.';
+  }
   for (let product of cart) {
     result += product.priceInCents;
   }
+
   return result;
 }
 
