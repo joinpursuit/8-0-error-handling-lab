@@ -41,15 +41,15 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   if (!products.length) {
-    throw "Must include products.";
-  } else if (typeof min != "Number" || typeof max != "Number") {
-    throw "Min and Max must be numbers.";
+    throw "must include products.";
+  } else if (typeof min != "number" || typeof max != "number") {
+    throw "min and Max must be numbers.";
   } else if (!max) {
-    throw "Max must not equal 0";
-  } else if (min > max) {
-    throw "Max must be less than min.";
+    throw "max must not equal 0";
+  } else if (max < min) {
+    throw "max must be less than min.";
   } else if (min < 0 || max < 0) {
-    throw "Max and Min must be greater than 0.";
+    throw "max and Min must be greater than 0.";
   }
   for (let product of products) {
     if (!product.priceInCents) {
