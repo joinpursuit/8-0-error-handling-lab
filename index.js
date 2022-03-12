@@ -20,7 +20,7 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
   let result = 0;
-  if (!cart || cart.length === 0){
+  if (cart.length === 0){
     throw "ERROR: Cart is empty!";
   }
   for (let product of cart) {
