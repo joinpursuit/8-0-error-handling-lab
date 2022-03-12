@@ -58,8 +58,8 @@ try {
 
 /*
   This function should throw an error if:
-  - The `products` array is empty. v
-  - Either `min` or `max` is not a number. v
+  - The `products` array is empty. x
+  - Either `min` or `max` is not a number. 
   - `max` is equal to `0`.
   - `min` is greater than `max`.
   - Either `min` or `max` is less than `0`.
@@ -67,19 +67,19 @@ try {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
-  if (products == []) {
+  if (products.length == 0) {
     throw error;
   }
-  if (!min.isInteger() || !max.isInteger()) {
+  if(min > max){
     throw error;
   }
-  if (max <= 0 || min < 0 || min > max) {
+  if (min < 0){
     throw error;
   }
-  if (!([priceInCents] in products)) {
+  if (max <= 0){
     throw error;
   }
-
+  
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
