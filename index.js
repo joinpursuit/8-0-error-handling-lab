@@ -24,6 +24,12 @@ function getCartTotal(cart) {
     result += product.priceInCents;
   }
   return result;
+};
+
+try {
+  getCartTotal(cart);
+} catch (error){
+  console.error(error);
 }
 
 /*
