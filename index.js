@@ -42,19 +42,21 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
  if (!products.length) {
-   throw 'no products.';
+   throw 'products array is empty';
  } else if (typeof min != 'number' || typeof max != 'number') {
    throw 'min and max not a number.';
  } else if (max === 0) {
    throw 'max must not equal 0';
  } else if (max < min) {
-   throw 'max must be less than min.';
+   throw 'max is less than min';
  } else if (min < 0 || max < 0) {
-   throw 'max and Min must be greater than 0.';
+   throw 'max and min must be greater than 0.';
  }
 
   for (let product of products) {
-   
+   if(!product.priceInCents){
+     throw 'products array does not have a priceInCents key'
+   }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
