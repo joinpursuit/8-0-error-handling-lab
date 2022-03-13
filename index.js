@@ -1,8 +1,6 @@
 /*
   Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
-
   You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
-
   Keep in mind that your functions must still have and use a parameter for accepting all songs.
 */
 const exampleProducts = [
@@ -13,12 +11,14 @@ const exampleProducts = [
   { id: 5, name: "Multi Game Table", priceInCents: 81743 },
 ];
 // Do not change the line above.
-
 /*
   This function should throw an error if:
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if(!cart.length){
+    throw 'error';
+  }
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -26,18 +26,23 @@ function getCartTotal(cart) {
   return result;
 }
 
+
 /*
   This function should throw an error if:
   - The `products` array is empty.
-  - Either `min` or `max` is not a number.
-  - `max` is equal to `0`.
-  - `min` is greater than `max`.
-  - Either `min` or `max` is less than `0`.
+@@ -36,23 +40,35 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if(!products.length || typeof min !== 'number' || typeof max !== 'number' || min < 0 || max <= 0){
+    throw 'error';
+  }
+
   const result = [];
   for (let product of products) {
+    if(!product.priceInCents){
+      throw 'error'
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -45,14 +50,20 @@ function filterProductsByPriceRange(products, min, max) {
   return result;
 }
 
+
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+  try{
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
 
   return total;
+  }
+  catch(error){
+    return 0;
+  }
 }
 
 module.exports = {
