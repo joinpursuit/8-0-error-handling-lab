@@ -91,7 +91,7 @@ function filterProductsByPriceRange(products, min, max) {
 */
 //creates a function to get the total of all products by the price range with the parameters products an array of objects, min and max which are numbers 
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  //TRY and run callback functions filterProductsByPriceRNGE AND getCartTotal where the return is supposed to be the total - if a CONDITIONAL ERROR (edge case) occurs
+  //TRY and run callback functions filterProductsByPriceRNGE AND getCartTotal where the return is supposed to be 'the total - if a CONDITIONAL ERROR (edge case) occurs
   try {
     const filteredProducts = filterProductsByPriceRange(products, min, max);
     const total = getCartTotal(filteredProducts);
