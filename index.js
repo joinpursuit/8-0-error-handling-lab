@@ -91,7 +91,6 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
       total = getCartTotal(filteredProducts);
     }
   }
-  
   return total;
 }
 
