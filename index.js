@@ -41,20 +41,15 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
   if (!products.length) {
     throw "There are no products.";
-  }
-  if (typeof min !== "number" || typeof max !== "number") {
+  } else if (typeof min !== "number" || typeof max !== "number") {
     throw "No minimum or maximum.";
-  }
-  if (min > max) {
+  } else if (min > max) {
     throw "Minimum is greater than maximum.";
-  }
-  if (min < 0) {
+  } else if (min < 0) {
     throw "Minimum is less than zero.";
-  }
-  if (max < 0) {
+  } else if (max < 0) {
     throw "Maximum is less than zero.";
-  }
-  if (max === 0) {
+  } else if (max === 0) {
     throw "Maximum is equal to zero.";
   }
   const result = [];
