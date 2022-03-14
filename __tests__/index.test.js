@@ -110,18 +110,18 @@ describe("getTotalOfAllProductsByPriceRange()", () => {
       )
     ).toEqual(0);
 
-    // `max` is less than `min`
+    // // `max` is less than `min`
     expect(getTotalOfAllProductsByPriceRange(products, 1000, 500)).toEqual(0);
 
-    // `max` or `min` is not a number.
+    // // `max` or `min` is not a number.
     expect(getTotalOfAllProductsByPriceRange(products, "100", 50000)).toEqual(
       0
     );
 
-    // `max` or `min` is less than 0.
+    // // `max` or `min` is less than 0.
     expect(getTotalOfAllProductsByPriceRange(products, -500, 50000)).toEqual(0);
 
-    // `max` is equal to 0.
+    // // `max` is equal to 0.
     expect(getTotalOfAllProductsByPriceRange(products, 0, 0)).toEqual(0);
   });
 });
