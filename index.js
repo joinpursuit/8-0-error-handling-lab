@@ -19,6 +19,7 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if(!cart.length) throw "Cart is empty!"
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
