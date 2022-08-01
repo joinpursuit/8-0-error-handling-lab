@@ -40,17 +40,17 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
-  // if (products.length === 0) {
-  //   throw console.error()
-  // }else if(max === 0) {
-  //   throw console.error()
-  // }else if(min > max){
-  //   throw console.error()
-  // }else if(min < 0 || max < 0){
-  //   throw console.error()
-  // }else if (typeof min !== "number" || typeof max !== "number") {
-  //   throw console.error()
-  // }
+  if (products.length === 0) {
+    throw console.error()
+  }else if(max === 0) {
+    throw console.error()
+  }else if(min > max){
+    throw console.error()
+  }else if(min < 0 || max < 0){
+    throw console.error()
+  }else if (typeof min !== "number" || typeof max !== "number") {
+    throw console.error()
+  }
 
   for (let product of products) {
     if (!product.priceInCents) {
