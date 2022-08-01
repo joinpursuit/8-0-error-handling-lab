@@ -45,10 +45,10 @@ function filterProductsByPriceRange(products, min, max) {
     throw "Enter a number for min or max!";
   }
   if (min > max) {
-    throw "Error msg";
+    throw "Max should be greater than max";
   }
-  if (min < 0 || max < 0) throw "Error";
-  if (max === 0) throw "Err";
+  if (min < 0 || max < 0) throw `Error:"min and max shoule not be zero"`;
+  if (max === 0) throw "max should not be equal to zero";
 
   const result = [];
   for (let product of products) {
@@ -67,17 +67,20 @@ function filterProductsByPriceRange(products, min, max) {
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
   //! use try-catch
+
+try{
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
 
   return total;
 }
+catch(error){
+return 0
+}
+}
 
 
 
-
-
-console.log("hello world");
 module.exports = {
   getCartTotal,
   filterProductsByPriceRange,
