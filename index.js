@@ -41,13 +41,10 @@ function filterProductsByPriceRange(products, min, max) {
   //is the cart empty? if so error. 
   typeof min !== "number" || typeof max !== "number" ? _throw('error.') : null
   //accounting for not a number
-  //ASK Why can't I use && for function to include both since I'm asking the same question.
-  
   !max ? _throw('error.') : null
   //If max is equal to 0 
   min < 0 || max  <  0 ? _throw('error.') : null
-  //If min and max is less than 0
-  //ASK CARLOS WHY DOESN'T WORK WHEN FORMATED MIN && MAX < 0 
+  //If min and max is less than 0 
 
   const result = [];
   for (let product of products) {
@@ -64,13 +61,11 @@ function filterProductsByPriceRange(products, min, max) {
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
   try{
-    //defining the code block 
     const filteredProducts = filterProductsByPriceRange(products, min, max);
     const total = getCartTotal(filteredProducts);
     
     return total;
   }catch (error){
-    //if theres an error then just return errors
     return 0
   }
 
