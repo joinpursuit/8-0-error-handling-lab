@@ -19,10 +19,16 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
+let result = 0;
+  if (cart.length === 0) {
+    throw `Cart is empty`
   }
+  for (let product of cart) {
+      
+    
+      result += product.priceInCents;
+    }
+  
   return result;
 }
 
@@ -37,7 +43,20 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
+  if (products.length === 0) {
+    throw `Error`;
+  } else if (typeof min !== `number` || typeof max !== `number`){
+    throw `Error`;
+  } else if (max === 0 || min <= 0) {
+    throw `Error`;
+  } else if (min > max) {
+    throw `Error`;
+  }
   for (let product of products) {
+    // accounts for something with a price of 0 (which is a falsey value ad would fire (!product.priceInCents))
+    if (product.priceInCents === undefined) {
+      throw `Error`;
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -45,14 +64,38 @@ function filterProductsByPriceRange(products, min, max) {
   return result;
 }
 
+// let pinkElephant = null
+
+// function findPinkElephantsByTimestreet(songs) {
+//   if(songs.length === 0){
+//     throw "There are NO songs"
+//   }
+
+//   return songs.find( ({ title }) => title === "Pink Elephants")
+
+// }
+
+// try {
+//   pinkElephant = findPinkElephantsByTimestreet([])
+//   console.log(pinkElephant)
+// } catch (error) {
+//   console.log(error)
+// }
+
+
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
 
   return total;
+
+} catch(error) {
+  return 0
+}
 }
 
 module.exports = {
