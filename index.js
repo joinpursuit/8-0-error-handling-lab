@@ -70,7 +70,7 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  let filteredProducts;
+  let filteredProducts = [];
   try {
     filteredProducts = filterProductsByPriceRange(products, min, max);
   } catch (error) {
@@ -89,7 +89,7 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
   return total;
 }
 
-console.log(getTotalOfAllProductsByPriceRange(exampleProducts, 10, 60000));
+// console.log(getTotalOfAllProductsByPriceRange(exampleProducts, 10, 60000));
 
 module.exports = {
   getCartTotal,
