@@ -19,7 +19,7 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  if(!cart.length) throw "Cart is empty!"
+  !cart.length ? _throw("Cart is empty!") : null;
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -37,9 +37,21 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
-  if(!products.length) throw "No Products In Cart!"
+  !products.length ? _throw("Cart Empty") : null
+  //is the cart empty? if so error. 
+  typeof min !== "number" || typeof max !== "number" ? _throw('error.') : null
+  //accounting for not a number
+  //ASK Why can't I use && for function to include both since I'm asking the same question.
+  
+  !max ? _throw('error.') : null
+  //If max is equal to 0 
+  min < 0 || max  <  0 ? _throw('error.') : null
+  //If min and max is less than 0
+  //ASK CARLOS WHY DOESN'T WORK WHEN FORMATED MIN && MAX < 0 
+
   const result = [];
   for (let product of products) {
+    if(!product.priceInCents) throw "No Price"
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
