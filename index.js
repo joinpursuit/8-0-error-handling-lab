@@ -45,7 +45,7 @@ function filterProductsByPriceRange(products, min, max) {
     throw "a number is needed";
   const result = [];
   for (let product of products) {
-    if (product.priceInCents === undefined) {
+    if (!product.priceInCents) {
       throw "There is no Price In Cents Key.";
     }
     if (product.priceInCents >= min && product.priceInCents <= max) {
