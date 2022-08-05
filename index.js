@@ -14,15 +14,24 @@ const exampleProducts = [
 ];
 // Do not change the line above.
 
+
+// SINTAXIS PARA HACER EL THROW ERROR
+// throw Error('Mi error')
+
 /*
   This function should throw an error if:
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (!cart.length) {
+    throw Error ('cart not be enter')
+  }
+
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
   }
+
   return result;
 }
 
@@ -36,8 +45,38 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+
+  // - The `products` array is empty.
+  if(!products.length) {
+    throw Error ('cart not be enter')
+  }
+
+  // - Either `min` or `max` is not a number.
+  if (typeof min !== "number" || typeof max !== "number" ) {
+    throw Error ("min / max is not a number")
+  }
+
+  // - `max` is equal to `0`.
+  if (max===0) {
+    throw Error ("`max` is equal to `0`")
+  }
+
+  // - `min` is greater than `max`.
+  if (min>max) {
+    throw Error ("`min` is greater than `max`")
+  }
+
+  // - Either `min` or `max` is less than `0`.
+  if ( (min || max) < 0) {
+    throw Error ("`min` or `max` is less than `0`")
+  }
+
   const result = [];
   for (let product of products) {
+    if (!product.priceInCents) {
+      throw Error ("Any of the products in the `products` array does not have a `priceInCents` key.")
+    }
+
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -49,10 +88,13 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+    return total;
+  } catch(error) {
+    return 0
+  }
 }
 
 module.exports = {
