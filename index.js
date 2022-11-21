@@ -14,17 +14,33 @@ const exampleProducts = [
 ];
 // Do not change the line above.
 
+// Using helper-functions with error-handling
+
+const isCartEmpty = (cart) => {
+  throw !cart.length ? `The ${cart} is empty.` : null;
+};
 /*
   This function should throw an error if:
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
+
+  isCartEmpty(cart );
+  try{
+
+    let result = 0;
+
+    for (let product of cart) {
+      result += product.priceInCents;
+    };
+
+  }catch(error){
+    console.log(error);
   }
+
   return result;
-}
+
+};
 
 /*
   This function should throw an error if:
