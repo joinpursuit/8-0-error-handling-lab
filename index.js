@@ -53,7 +53,7 @@ const runErrorHandling = ( products, min, max ) =>{
   }else if( hasPriceInCents( products) ){
     throw `One of the products in the array '${products}' does not have a the key 'priceInCents'.`
   }else if( validNums( min, max ) ){
-    throw `Either ${min} or ${max} is NaN.`
+    throw `Either ${min} or ${max} value is NaN.`
   }else if( isMinGreaterThanMax(min, max) ){
     throw `The ${min} value is greater than the ${max} value.`
   }else if( lessThanZeroNums( min, max ) ){

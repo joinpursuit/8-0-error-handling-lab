@@ -62,7 +62,8 @@ describe("filterProductsByPriceRange()", () => {
   test("should throw an error if either the `min` or `max` value is not a number", () => {
     expect(() =>
       filterProductsByPriceRange(products, 10000, "30000")
-    ).toThrow('Either `min` or `max` value is NaN.');
+    ).toThrow('Either 10000 or 30000 value is NaN.');
+    
   });
 
   test("should throw an error if the `min` value is greater than the `max` value", () => {
