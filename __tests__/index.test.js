@@ -105,8 +105,8 @@ describe("getTotalOfAllProductsByPriceRange()", () => {
     expect(
       getTotalOfAllProductsByPriceRange(
         [...products, { id: 6, name: "L-Shaped Desk" }],
-        1000,
-        2000
+        1000, // min
+        2000 // max
       )
     ).toEqual(0);
 
