@@ -66,7 +66,7 @@ describe("filterProductsByPriceRange()", () => {
   });
 
   test("should throw an error if the `min` value is greater than the `max` value", () => {
-    expect(() => filterProductsByPriceRange([], 30000, 10000)).toThrow();
+    expect(() => filterProductsByPriceRange(products, 30000, 10000)).toThrow();
   });
 
   test("should throw an error if either the `min` or `max` value is less than 0", () => {
