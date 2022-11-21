@@ -48,10 +48,11 @@ describe("filterProductsByPriceRange()", () => {
 
   test("should throw an error if any of the products is missing the `priceInCents` key", () => {
     expect(() =>
-      filterProductsByPriceRange([
-        ...products,
-        { id: 6, name: "L-Shaped Desk" },
-      ])
+      filterProductsByPriceRange(
+        [...products, { id: 6, name: "L-Shaped Desk" }],
+        1000,
+        3000
+      )
     ).toThrow();
   });
 
