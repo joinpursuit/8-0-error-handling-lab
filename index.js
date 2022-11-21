@@ -34,7 +34,7 @@ const validNums= ( min, max ) =>{
 
 // This could be combined with maxIsZero() - Must come back to it.
 const lessThanZeroNums = ( min, max ) => {
- return min < 0 || max < 0 || min > max;
+ return min < 0 || max < 0;
 }
 
 const maxIsZero = ( max ) => {
