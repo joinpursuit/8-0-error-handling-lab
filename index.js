@@ -15,17 +15,52 @@ const exampleProducts = [
 // Do not change the line above.
 
 // Using helper-functions with error-handling
-
-const isCartEmpty = (cart) => {
+const isArrEmpty = (cart) => {
   throw !cart.length ? `The ${cart} is empty.` : null;
 };
+
+// This could be turned into validProperty() - Must come back to it.
+const hasPriceInCents = ( products ) => {
+  return products.map( product => product.hasOwnProperty('priceInCents') ).includes(false);
+};
+
+const validNums= ( min, max ) =>{
+  return typeof min !== 'number' || typeof max !== 'number';
+};
+
+// This could be combined with maxIsZero() - Must come back to it.
+const lessThanZeroNums = ( min, max ) => {
+ return min < 0 || max < 0 || min > max;
+}
+
+const maxIsZero = ( max ) => {
+  return max === 0;
+}
+
+const runErrorHandling = ( products, min, max ) =>{
+
+  if( isArrEmpty( products ) ){
+    throw `The ${products} array is empty.`
+  }else if( hasPriceInCents( products) ){
+    throw `One of the products in the array '${products}' does not have a the key 'priceInCents'.`
+  }else if( validNums( min, max ) ){
+    throw `Either ${min} or ${max} is NaN.`
+  }else if( lessThanZeroNums( min, max ) ){
+    throw `Either ${min} or ${max} is less than zero.`
+  }else if( maxIsZero(max) ){
+    throw `${max} is equal to zero.`
+  }
+
+};
+
 /*
   This function should throw an error if:
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
 
-  isCartEmpty(cart );
+  isArrEmpty(cart);
+  
   try{
 
     let result = 0;
@@ -52,6 +87,7 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+
   const result = [];
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
