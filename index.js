@@ -43,7 +43,18 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
+  //check for any errors
+  if (products.length === 0 || typeof(min) != "number" || typeof(max) != "number" || min < 0 || max <= 0 || min > max){
+    //throw the error message
+    throw "there was an error"
+  }
+
   for (let product of products) {
+    //check for missing price key
+    if (!product.priceInCents){
+      //error message
+      throw "there is no price"
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
