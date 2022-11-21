@@ -41,6 +41,11 @@ const maxIsZero = ( max ) => {
   return max === 0;
 }
 
+const isMinGreaterThanMax = (min, max) => {
+  return min > max;
+};
+
+
 const runErrorHandling = ( products, min, max ) =>{
 
   if( isArrEmpty( products ) ){
@@ -49,11 +54,13 @@ const runErrorHandling = ( products, min, max ) =>{
     throw `One of the products in the array '${products}' does not have a the key 'priceInCents'.`
   }else if( validNums( min, max ) ){
     throw `Either ${min} or ${max} is NaN.`
+  }else if( isMinGreaterThanMax(min, max) ){
+    throw `The ${min} value is greater than the ${max} value.`
   }else if( lessThanZeroNums( min, max ) ){
     throw `Either ${min} or ${max} is less than zero.`
   }else if( maxIsZero(max) ){
     throw `${max} is equal to zero.`
-  }
+  };
 
 };
 
@@ -122,7 +129,7 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
   }catch( error ){
     return 0;
   };
-  
+
 };
 
 module.exports = {
