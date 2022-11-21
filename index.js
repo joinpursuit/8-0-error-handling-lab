@@ -40,6 +40,16 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if (products.length == 0 || (products.some(p => !p.hasOwnProperty("priceInCents")))){
+    throw "Products array needs adjustments"
+  }
+  if(typeof max != "number" || max == 0 || max < 0){
+    throw "Max needs adjustment"
+  };
+  if(typeof min != "number" || min > max || min < 0){
+    throw "Min need adjustment"
+  }
+
   const result = [];
   for (let product of products) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
