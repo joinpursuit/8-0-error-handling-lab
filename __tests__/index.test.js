@@ -48,10 +48,11 @@ describe("filterProductsByPriceRange()", () => {
 
   test("should throw an error if any of the products is missing the `priceInCents` key", () => {
     expect(() =>
-      filterProductsByPriceRange([
-        ...products,
-        { id: 6, name: "L-Shaped Desk" },
-      ])
+      filterProductsByPriceRange(
+        [...products, { id: 6, name: "L-Shaped Desk" }],
+        1000,
+        3000
+      )
     ).toThrow();
   });
 
@@ -66,7 +67,7 @@ describe("filterProductsByPriceRange()", () => {
   });
 
   test("should throw an error if the `min` value is greater than the `max` value", () => {
-    expect(() => filterProductsByPriceRange([], 30000, 10000)).toThrow();
+    expect(() => filterProductsByPriceRange(products, 30000, 10000)).toThrow();
   });
 
   test("should throw an error if either the `min` or `max` value is less than 0", () => {
