@@ -1,7 +1,10 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
+  Do not change the line below. If you'd like to run code from this file, you may use the 
+  `exampleSongData` variable below to gain access to tickets data. This data is pulled 
+  from the `data/songs.js` file.
 
-  You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
+  You may use this data to test your functions. You may assume the shape of the data remains 
+  the same but that the values may change.
 
   Keep in mind that your functions must still have and use a parameter for accepting all songs.
 */
@@ -19,6 +22,7 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length === 0) throw 'this code is wrong';
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -36,8 +40,13 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if (products.length === 0) throw 'There are no products';
+  if (typeof min != 'number' || typeof max != 'number') throw 'Max or min is not a number';
+  if (max == 0 || min > max) throw 'There is an error'
+  if (min < 0 || max < 0) throw 'Min or max is negative'
   const result = [];
   for (let product of products) {
+    if (!('priceInCents' in product)) throw 'There is a product without a price'
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -49,10 +58,13 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+    return total;
+  } catch (error) {
+    return 0;
+  }
 }
 
 module.exports = {
