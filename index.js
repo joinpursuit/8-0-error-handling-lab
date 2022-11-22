@@ -6,11 +6,11 @@
   Keep in mind that your functions must still have and use a parameter for accepting all songs.
 */
 const exampleProducts = [
-  { id: 1, name: "Panel Headboard", priceInCents: 12332 },
-  { id: 2, name: "Low Profile Sleigh Bed", priceInCents: 22999 },
-  { id: 3, name: "Oval 100% Cotton Solid Bath Rug", priceInCents: 1399 },
-  { id: 4, name: "Abstract Light Gray Area Rug", priceInCents: 33999 },
-  { id: 5, name: "Multi Game Table", priceInCents: 81743 },
+	{ id: 1, name: 'Panel Headboard', priceInCents: 12332 },
+	{ id: 2, name: 'Low Profile Sleigh Bed', priceInCents: 22999 },
+	{ id: 3, name: 'Oval 100% Cotton Solid Bath Rug', priceInCents: 1399 },
+	{ id: 4, name: 'Abstract Light Gray Area Rug', priceInCents: 33999 },
+	{ id: 5, name: 'Multi Game Table', priceInCents: 81743 },
 ];
 // Do not change the line above.
 
@@ -19,11 +19,14 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  let result = 0;
-  for (let product of cart) {
-    result += product.priceInCents;
-  }
-  return result;
+	let result = 0;
+	if (!cart.length) {
+		throw 'Cart is empty.';
+	}
+	for (let product of cart) {
+		result += product.priceInCents;
+	}
+	return result;
 }
 
 /*
@@ -36,27 +39,50 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
-  const result = [];
-  for (let product of products) {
-    if (product.priceInCents >= min && product.priceInCents <= max) {
-      result.push(product);
+	const result = [];
+	if (!products.length) {
+		throw `ERROR: No products listed.`;
+	}
+	if (typeof min !== 'number' || typeof max !== 'number') {
+		throw `ERROR: Minimum/Maximum must be a number.`;
+	}
+	if (min > max) {
+		throw `ERROR: Minimum cannot be more than maximum.`;
+	}
+	if (min < 0 || max < 0) {
+		throw `ERROR: Entry cannot be negative number.`;
+	}
+	if (max === 0) {
+		throw `ERROR: Maximum cannot be 0.`;
+	}
+  
+	for (let product of products) {
+    if (!product.priceInCents){
+      throw 'ERROR'
     }
-  }
-  return result;
+		if (product.priceInCents >= min && product.priceInCents <= max) {
+			result.push(product);
+		}
+	}
+	return result;
 }
 
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+	try {
+		const filteredProducts = filterProductsByPriceRange(products, min, max);
+		const total = getCartTotal(filteredProducts);
 
-  return total;
+		return total;
+	} catch (error) {
+		return 0;
+	}
 }
 
 module.exports = {
-  getCartTotal,
-  filterProductsByPriceRange,
-  getTotalOfAllProductsByPriceRange,
+	getCartTotal,
+	filterProductsByPriceRange,
+	getTotalOfAllProductsByPriceRange,
 };
