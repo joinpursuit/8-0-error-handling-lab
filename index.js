@@ -19,6 +19,7 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length === 0) throw "error: the cart is empty"
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -36,8 +37,20 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+
+    if (products.length===0) throw "error: There are no products";
+    
+    if (typeof min != "number" || typeof max != "number") throw "`max` or `min` is not a number" 
+  
+    if (min < 0 || max < 0) throw "`min` or `max` is less than 0.";
+
+    if (max === 0) throw "`max` is equal to 0.";
+
+    if (min > max ) throw " `max` is less than `min`";
+
   const result = [];
   for (let product of products) {
+    if (product.priceInCents.length === 0) throw "error: at least one product is missing the priceInCents key."
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -48,11 +61,19 @@ function filterProductsByPriceRange(products, min, max) {
 /*
   If any errors occur in this function, it should return `0`.
 */
+
+/*
+A try/catch block is being used here. The request was for any error to return 0. The entire function is put in the try block. If it works, then the code goes on to the catch step. If it does catch an error, we have asked it to return "0". 
+*/
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+try {
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
 
   return total;
+} catch (error) {
+  return 0
+}
 }
 
 module.exports = {
