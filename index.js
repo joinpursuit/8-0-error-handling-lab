@@ -59,7 +59,7 @@ function filterProductsByPriceRange(products, min, max) {
     if(!("priceInCents" in product)){
       throw new Error(`${product} does not have a priceInCents key`);
     }
-    else if (min <= product.priceInCents && product.priceInCents <= max) {
+    if(min <= product.priceInCents && product.priceInCents <= max) {
       result.push(product);
     }
   }
