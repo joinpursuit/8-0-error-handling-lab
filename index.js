@@ -70,7 +70,7 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
     const filteredProducts = filterProductsByPriceRange(products, min, max)
     const total = getCartTotal(filteredProducts)
     return total
-  } catch (error){
+  } catch (error) {
     console.log('there was an error in the code', error)
     return 0
   }
