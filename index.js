@@ -41,10 +41,35 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
   for (let product of products) {
+    if (!product.priceInCents) {
+      throw `Product does not contain a price.`
+      // Any of the products in the `products` array does not have a `priceInCents` key.
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
   }
+  if (!products.length) {
+    // The `products` array is empty.
+    throw `No product found.`
+  }
+  if (typeof min != 'number'||typeof  max != 'number') {
+    throw `Minimum and maximum values must be numbers.`
+    // Either `min` or `max` is not a number.
+  }
+  if (max === 0) {
+    throw `Maximum number cannot be 0.` 
+    // `max` is equal to `0`.
+  }
+  if (min > max) {
+    throw `Minimum cannot be greater than maxiumum.`
+    // `min` is greater than `max`.
+  }
+  if(min < 0 || max < 0){
+    throw `Number must be greater than 0.`
+    // Either `min` or `max` is less than `0`
+  }
+  
   return result;
 }
 
