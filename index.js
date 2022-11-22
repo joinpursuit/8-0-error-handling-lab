@@ -19,6 +19,10 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length === 0) {
+    throw 'this code is wrong'
+  }
+  
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -36,12 +40,19 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
-  const result = [];
+  if (products.length === 0) throw "It's an error with no product"
+  if(typeof min !== `number` || typeof max !== `number`) throw "Error not a number"
+  if(min > max) throw "Value is too big"
+  if(min < 0 || max < 0) throw "Value is too small"
+  if(max === 0) throw "Value is zero"
+
+  const result = []
   for (let product of products) {
+    if (!product.priceInCents) throw "missing a price"
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
-  }
+  }//end loop
   return result;
 }
 
@@ -49,8 +60,15 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
+  try { filteredProducts = filterProductsByPriceRange(products, min,max)
+    total = getCartTotal(filteredProducts)
+    
+  } catch (error) {
+    return 0
+  }
+
+  // const filteredProducts = filterProductsByPriceRange(products, min, max);
+  // const total = getCartTotal(filteredProducts);
 
   return total;
 }
