@@ -72,22 +72,11 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  
   try{
-    filterProductsByPriceRange(products, min, max);   // when called filterProductsByPriceRange(), if any error, return 0
+    return getCartTotal(filterProductsByPriceRange(products, min, max));   // when called the function, if any error, return 0
   } catch(error) {
     return 0
   }
-
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-
-  try{
-    getCartTotal(filteredProducts)        // // when called getCartTotal(), if any error, return 0
-  }catch(error){
-    return 0
-  }
-  const total = getCartTotal(filteredProducts);
-  return total;
 }
 
 module.exports = {
