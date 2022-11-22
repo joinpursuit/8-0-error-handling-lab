@@ -24,7 +24,7 @@ describe("getCartTotal()", () => {
   });
 });
 
-describe("filterProductsByPriceRange()", () => {
+describe.only("filterProductsByPriceRange()", () => {
   test("should return an array of all products that have a price within the price range (inclusive)", () => {
     const min = 10000;
     const max = 30000;
@@ -79,7 +79,7 @@ describe("filterProductsByPriceRange()", () => {
   });
 });
 
-describe("getTotalOfAllProductsByPriceRange()", () => {
+describe.only("getTotalOfAllProductsByPriceRange()", () => {
   test("should return the total of all products within the price range (inclusive)", () => {
     const min = 30000;
     const max = 100000;
