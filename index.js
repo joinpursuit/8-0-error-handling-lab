@@ -19,6 +19,9 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if (cart.length===0){
+    throw 'error cart is empty'
+  }
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -37,23 +40,61 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
+
+  if (products.length === 0){
+    throw 'this product is an error'
+  };
+
+  if ( typeof min !== 'number' || typeof max !== 'number'){
+    throw 'this is not a number'
+  };
+
+  if (max === 0){
+    throw 'error max equal to zero'
+  };
+
+  if (min>max){
+    throw 'error min is greater than max'
+  };
+
+  if (min<0 || max<0){
+    throw 'error values are less than 0'
+  };
+
+
+  
   for (let product of products) {
+
+    if (!product.priceInCents){
+      throw 'error does not have price in cents key'
+    };
+
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
   }
   return result;
-}
+};
 
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+// please place this at the top as guard clause// 
+  try {
+    getTotalOfAllProductsByPriceRange(products, min, max) // this line is calling the name of the function hence, look at line 78 the name of the function is getTotalOfAllProductsByPriceRange is is stating at line 76 "if any erors occur IN this function"
+   } catch (error) {
+    return 0
+   };
+  
+
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
-
+  
   return total;
-}
+};
+
+
 
 module.exports = {
   getCartTotal,
