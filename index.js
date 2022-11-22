@@ -22,6 +22,9 @@ function getCartTotal(cart) {
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
+  } 
+  if (cart.length === 0) {
+    throw "The `cart` array is empty";
   }
   return result;
 }
@@ -41,19 +44,55 @@ function filterProductsByPriceRange(products, min, max) {
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
+    if (!product.priceInCents) {
+      throw "Any of the products in the `products` array does not have a `priceInCents` key";
+    }
   }
+  if (max === 0) {
+    throw "`max` is equal to `0`";
+  }
+  if (min < 0 || max < 0) {
+    throw "Either `min` or `max` is less than `0`";
+  }
+  if (min > max) {
+    throw "`min` is greater than `max`";
+  }
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw "Either `min` or `max` is not a number";
+  }
+  if (products.length === 0) {
+    throw "The `products` array is empty";
+  } 
   return result;
 }
+
 
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  // const filteredProducts = filterProductsByPriceRange(products, min, max);
+  // const total = getCartTotal(filteredProducts);
+  try {
+    getCartTotal(filterProductsByPriceRange(products, min, max));
+  } catch (error) {
+    console.log(error)
+    return 0
+  }
+  return getCartTotal(filterProductsByPriceRange(products, min, max))
 }
+
+// const min = -6
+// const max = 100000
+
+// const products = [
+//   { id: 1, name: "Panel Headboard", priceInCents: 12332 },
+//   { id: 2, name: "Low Profile Sleigh Bed", priceInCents: 22999 },
+//   { id: 3, name: "Oval 100% Cotton Solid Bath Rug", priceInCents: 1399 },
+//   { id: 4, name: "Abstract Light Gray Area Rug", priceInCents: 33999 },
+//   { id: 5, name: "Multi Game Table", priceInCents: 81743 },
+// ];
+// getTotalOfAllProductsByPriceRange(products, min, max)
 
 module.exports = {
   getCartTotal,
