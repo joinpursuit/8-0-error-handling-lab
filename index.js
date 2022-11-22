@@ -38,26 +38,42 @@ function getCartTotal(cart) {
   - Either `min` or `max` is less than `0`.
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
+// ORIGINAL ANSWER
+// function filterProductsByPriceRange(products, min, max) {
+//   if(!products.length) throw "Empty!";
+//   // if (typeof min !== 'number' || typeof max !== 'number') throw "'min' or 'max' is not a number";
+//   if(typeof max || typeof min === NaN){
+//     throw "Error!"
+//   }
+//   if(max === 0){
+//     throw "Error!"
+//   }
+//   if(max < min){
+//     throw "Error!"
+//   }
+//   if(max || min < 0){
+//     throw "Error!"
+//   }
+//   const result = [];
+//   for (let product of products) {
+//     if (product.priceInCents === undefined){
+//       throw "This key doesn't exist."
+//     }
+//     if (product.priceInCents >= min && product.priceInCents <= max) {
+//       result.push(product);
+//     }
+//   }
+//   return result;
+// }
 function filterProductsByPriceRange(products, min, max) {
-  if(!products.length) throw "Empty!";
-  // if (typeof min !== 'number' || typeof max !== 'number') throw "'min' or 'max' is not a number";
-  if(typeof max || typeof min === NaN){
-    throw "Error!"
-  }
-  if(max === 0){
-    throw "Error!"
-  }
-  if(max < min){
-    throw "Error!"
-  }
-  if(max || min < 0){
-    throw "Error!"
-  }
+  if(!products.length) throw "There are no products";
+  if (typeof min !== 'number' || typeof max !== 'number') throw "'min' or 'max' is not a number";
+  if (max <= 0 || min > max || min < 0) throw 'Error! Input valid min or max'
+
   const result = [];
   for (let product of products) {
-    if (product.priceInCents === undefined){
-      throw "This key doesn't exist."
-    }
+    if (product.priceInCents === undefined) throw "priceInCents key doesn't exist";
+
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -69,10 +85,18 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+  try{
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
-
   return total;
+  } catch (error){
+    return 0
+  }
+  // let error = 0
+  // if(error){
+  //   return error
+  // }
+
 }
 
 module.exports = {
