@@ -69,19 +69,19 @@ function filterProductsByPriceRange(products, min, max) {
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
   
- try {
-
+ 
+try{
 
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
 
   return total;
- }catch(error){
-  return 0
- }
 
-}
+  }catch (error) {
   
+    return 0;
+  }
+}
 
 
 module.exports = {
