@@ -50,7 +50,7 @@ function filterProductsByPriceRange(products, min, max) {
   }
   
   else if (min < 0 || min > max){
-    throw `${min} cant be less than 0 and cant be greater than ${max}.` // throw error if min less than 0 or greater than amx
+    throw `${min} cant be less than 0 or cant be greater than ${max}.` // throw error if min less than 0 or greater than amx
   }
 
   else if(max <= 0){
@@ -79,6 +79,39 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
   }
 }
 
+function guestHasName(guest) {
+  if (!guest.name) {
+    throw `Guest ${guest.id} is missing a name!`;
+  }
+  if (!guest.email) {
+    throw `Guest ${guest.id} is missing a email!`;
+  }
+}
+
+function checkInAllGuests(guests) {
+  for (let guest of guests) {
+    guest.checkedIn = true;
+  }
+}
+
+const guests = [
+  { id: 1, name: "Isaac Price", email: "iprice@gmail.com" },
+  { id: 2, name: "Angelica Russo", email: "angie.russo@gmail.com" },
+  { id: 3 },
+];
+
+try {
+  console.log("Checking in all guests...");
+  for (let guest of guests) {
+    guestHasName(guest);
+  }
+
+  checkInAllGuests(guests);
+  
+} catch (error) {
+  console.error("Guest check-in failed!");
+  console.log(guests);
+}
 module.exports = {
   getCartTotal,
   filterProductsByPriceRange,
