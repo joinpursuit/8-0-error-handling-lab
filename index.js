@@ -41,7 +41,7 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
   for (let product of products) {
-    if (!products.priceInCents) {
+    if (!product.priceInCents) {
       throw `Product does not contain a price.`
     }
     if (product.priceInCents >= min && product.priceInCents <= max) {
@@ -70,12 +70,15 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
+  try {
   const filteredProducts = filterProductsByPriceRange(products, min, max);
   const total = getCartTotal(filteredProducts);
 
   return total;
+} catch (error) {
+  return 0
 }
-
+}
 module.exports = {
   getCartTotal,
   filterProductsByPriceRange,
