@@ -23,6 +23,9 @@ function getCartTotal(cart) {
   for (let product of cart) {
     result += product.priceInCents;
   }
+  if (!result) {
+    throw `Cart is Empty!`
+  }
   return result;
 }
 
