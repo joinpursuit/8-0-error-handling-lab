@@ -20,6 +20,9 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
   let result = 0;
+  if(!cart.length){
+    throw "Cart Array is empty"     // throw an error if the cart array is empty.
+  }
   for (let product of cart) {
     result += product.priceInCents;
   }
@@ -37,7 +40,27 @@ function getCartTotal(cart) {
 */
 function filterProductsByPriceRange(products, min, max) {
   const result = [];
+
+  if(!products.length){
+    throw "Products Array is empty"   // throw an error if products array is empty
+  }
+  
+  else if(typeof min !== "number" || typeof max !== "number"){ // throw error if min and max is not a number
+    throw "${min} and ${max} both must be numbers";
+  }
+  
+  else if (min < 0 || min > max){
+    throw `${min} cant be less than 0 or cant be greater than ${max}.` // throw error if min less than 0 or greater than amx
+  }
+
+  else if(max <= 0){
+    throw `${max} cant be less than or equal to 0`    // throw error if max cant be less than or equal to 0
+  }
+  
   for (let product of products) {
+    if (!product.priceInCents){
+      throw "Products is missing priceInCents key"  // throw error if product does not have priceInCents
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -49,12 +72,46 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  try{
+    return getCartTotal(filterProductsByPriceRange(products, min, max));   // when called the function, if any error, return 0
+  } catch(error) {
+    return 0
+  }
 }
 
+function guestHasName(guest) {
+  if (!guest.name) {
+    throw `Guest ${guest.id} is missing a name!`;
+  }
+  if (!guest.email) {
+    throw `Guest ${guest.id} is missing a email!`;
+  }
+}
+
+function checkInAllGuests(guests) {
+  for (let guest of guests) {
+    guest.checkedIn = true;
+  }
+}
+
+const guests = [
+  { id: 1, name: "Isaac Price", email: "iprice@gmail.com" },
+  { id: 2, name: "Angelica Russo", email: "angie.russo@gmail.com" },
+  { id: 3 },
+];
+
+try {
+  console.log("Checking in all guests...");
+  for (let guest of guests) {
+    guestHasName(guest);
+  }
+
+  checkInAllGuests(guests);
+  
+} catch (error) {
+  console.error("Guest check-in failed!");
+  console.log(guests);
+}
 module.exports = {
   getCartTotal,
   filterProductsByPriceRange,
