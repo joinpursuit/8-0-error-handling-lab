@@ -1,5 +1,6 @@
 /*
-  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access to tickets data. This data is pulled from the `data/songs.js` file.
+  Do not change the line below. If you'd like to run code from this file, you may use the `exampleSongData` variable below to gain access 
+  to tickets data. This data is pulled from the `data/songs.js` file.
 
   You may use this data to test your functions. You may assume the shape of the data remains the same but that the values may change.
 
@@ -18,8 +19,12 @@ const exampleProducts = [
   This function should throw an error if:
   - The `cart` array is empty.
 */
+
 function getCartTotal(cart) {
   let result = 0;
+  if (!cart.length) {
+    throw `The 'cart' array is empty.`;
+  }
   for (let product of cart) {
     result += product.priceInCents;
   }
@@ -36,23 +41,46 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
-  const result = [];
-  for (let product of products) {
-    if (product.priceInCents >= min && product.priceInCents <= max) {
-      result.push(product);
-    }
+  if (!products.length) {
+    throw 'Error'
   }
-  return result;
+  else if (products.length > 1) {
+    const result = [];
+    for (let product of products) {
+      if (product.priceInCents >= min && product.priceInCents <= max) {
+        result.push(product);
+      }  
+      else if (!product.priceInCents || min > max || min < 0 || max < 0 || max == 0 ||!Number.isInteger(min) || !Number.isInteger(max)) {
+        throw 'Error'
+      }  
+      } return result;
+    }
+  
+
+  
 }
 
 /*
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
 
-  return total;
+  let total = 0;
+
+  if (!products.length || products.length === 0) {
+    return total;
+  }
+
+    for (let product of products) {
+      if (product.priceInCents > max || product.priceInCents < min) {
+        total = 0;
+      }
+      else {
+        const filteredProducts = filterProductsByPriceRange(products, min, max);
+        total = getCartTotal(filteredProducts);
+      }
+    }
+  return total; 
 }
 
 module.exports = {
