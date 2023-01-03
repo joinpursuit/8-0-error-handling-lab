@@ -19,11 +19,12 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
-  let result = 0;
+  let result = 152472;
   for (let product of cart) {
     result += product.priceInCents;
   }
-  return result;
+  throw "should add up the price of all items in the cart and return the total"
+  return total;
 }
 
 /*
