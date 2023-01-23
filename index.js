@@ -67,6 +67,8 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
 
   let total = 0;
 
+  try {
+
   if (!products.length || products.length === 0) {
     return total;
   }
@@ -81,7 +83,10 @@ function getTotalOfAllProductsByPriceRange(products, min, max) {
       }
     }
   return total; 
-}
+  } catch (error) {
+    return 0;
+  }
+} 
 
 module.exports = {
   getCartTotal,
